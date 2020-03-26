@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd        http://camel.apache.org/schema/spring       http://camel.apache.org/schema/spring/camel-spring.xsd">
+    <camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
+        <route id="simple-route">
+            <from id="_to1" uri="netty4-http:http:0.0.0.0:9800/investment"/>
+            <setBody id="route-setBody">
+                <constant>&lt;soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope/"
+soap:encodingStyle="http://www.w3.org/2003/05/soap-encoding"&gt;
+&lt;soap:Header&gt;
+&lt;/soap:Header&gt;
+&lt;soap:Body&gt;
+&lt;xmlns:req&gt;
+  &lt;xmlns:refId&gt;AB1234560890101&lt;/xmlns:refId&gt;
+  &lt;xmlns:reqTime&gt;2020-03-31T12:16:07.124Z&lt;/xmlns:reqTime&gt;
+  &lt;xmlns:epfNo&gt;MY12354678&lt;/xmlns:epfNo&gt;
+&lt;/xmlns:req&gt;
+&lt;/soap:Body&gt;
+&lt;/soap:Envelope&gt;</constant>
+            </setBody>
+            <to id="_to2" uri="netty4-http:http:node-red-git-nodered.mycluster-179309-bee7ed7e116952c03f0e15cdb555fa9a-0000.sng01.containers.appdomain.cloud:80/investment"/>
+        </route>
+    </camelContext>
+</beans>
